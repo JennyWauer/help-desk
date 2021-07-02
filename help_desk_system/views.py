@@ -13,3 +13,10 @@ def login(request):
         'login_form': login_form
     }
     return render(request, 'login.html', context)
+
+def register(request):
+    register_form = RegisterForm()
+    context = {
+        'register_form': register_form
+    }
+    return render(request, 'register.html', context)
