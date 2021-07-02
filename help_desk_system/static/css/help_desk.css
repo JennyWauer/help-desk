@@ -3,3 +3,13 @@ body {
     color: white;
     font-family: 'Mulish', sans-serif;
 }
+
+.login {
+    background-image: linear-gradient(to right, white, #9DC88D);
+    color: black;
+}
+
+.button {
+    background-color: #F1B24A;
+    color: white;
+}

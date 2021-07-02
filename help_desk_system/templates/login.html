@@ -14,18 +14,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">
     {% load static %}
-    {% load crispy_forms_tags %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/help_desk.css' %}">
 </head>
 
 <body>
-    <h2>Help Desk</h2>
-    <form class="mr-auto mb-2" action="/user_login/" method="POST">
-        {% csrf_token %}
-        {{ login_form|crispy }}
-        <input class="btn btn-styled" type="submit" name="submit" id="submit" value="Sign In">
-    </form>
-    <p>New to Help Desk? <a href="/register">Sign up!</a></p>
+    <div class="w-50 ml-auto mr-auto">
+        <div class="mt-5 p-4 ml-auto mr-auto login rounded">
+                <h2>Help Desk</h2>
+                <div class="form-group w-50">
+                    <form class="mb-2" action="/user_login/" method="POST">
+                        {% csrf_token %}
+                        {{ login_form.as_p }}
+                        <input class="btn button mt-2" type="submit" name="submit" id="submit" value="Sign In">
+                    </form>
+                    <p>New to Help Desk? <a href="/register">Sign up!</a></p>
+                </div>
+        </div>
+    </div>
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
