@@ -1,3 +1,5 @@
 body {
     background-image: linear-gradient(to right, #164A41, #4D774E, #9DC88D);
+    color: white;
+    font-family: 'Mulish', sans-serif;
 }
