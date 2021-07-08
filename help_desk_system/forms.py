@@ -1,8 +1,9 @@
+from django.db.models import fields
 from django.forms import ModelForm, widgets
 
 from django import forms
 
-from .models import User
+from .models import Ticket, User
 
 class RegisterForm(ModelForm):
     confirm_password = forms.CharField(max_length=255, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -35,3 +36,14 @@ class LoginForm(ModelForm):
             'email': forms.TextInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
+
+class TicketForm(ModelForm):
+    class Meta:
+        model = Ticket
+        fields = (
+            "name",
+            "desc",
+            "due_date",
+            "related_feature",
+            "high_priority",
+        )
