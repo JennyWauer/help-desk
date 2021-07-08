@@ -64,6 +64,18 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
+class TicketManager(models.Manager):
+    def ticket_validator(self, postData):
+        ticket_errors = {}
+        if len(postData['name']) < 2:
+            ticket_errors["name"] = "Ticket should be at least 2 characters"
+        if len(postData['desc']) < 5:
+            ticket_errors["desc"] = "Ticket description name should be at least 5 characters"
+        if len(postData['related_feature']) < 2:
+            ticket_errors["related_feature"] = "Related feature should be at least 2 characters"
+
+
+
 class Ticket(models.Model):
     name = models.CharField(max_length=255)
     desc = models.TextField()
@@ -74,3 +86,4 @@ class Ticket(models.Model):
     user = models.ForeignKey(User,related_name="tickets",on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = TicketManager()
