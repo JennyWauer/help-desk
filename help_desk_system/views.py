@@ -59,3 +59,21 @@ def new_user(request):
             request.session['userid'] = new_user.id
             return redirect('/home')
     return redirect('/register')
+
+def create_ticket(request):
+    if request.method == 'POST':
+        errors = Ticket.objects.ticket_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/new_ticket')
+        else:
+            new_ticket = Ticket.objects.create(
+                name=request.POST['name'],
+                desc=request.POST['desc'],
+                due_date=request.POST['due_date'],
+                high_priority=request.POST['high_priority'],
+                user=User.object.get(id=request.session['userid'])
+            )
+            return redirect('/home')
+    return redirect('/home')
