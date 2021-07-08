@@ -63,3 +63,14 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+class Ticket(models.Model):
+    name = models.CharField(max_length=255)
+    desc = models.TextField()
+    due_date = models.DateField()
+    related_feature = models.CharField(max_length=255)
+    status = models.CharField(max_length=255)
+    high_priority = models.BooleanField()
+    user = models.ForeignKey(User,related_name="tickets",on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
