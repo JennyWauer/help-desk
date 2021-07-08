@@ -1,6 +1,8 @@
 from django.db.models import fields
 from django.forms import ModelForm, widgets
 
+from bootstrap_datepicker_plus import DatePickerInput
+
 from django import forms
 
 from .models import Ticket, User
@@ -51,7 +53,7 @@ class TicketForm(ModelForm):
         widgets = {
             "name": forms.TextInput(attrs={'class': 'form-control'}),
             "desc": forms.TextInput(attrs={'class': 'form-control'}),
-            "due_date": forms.DateInput(attrs={'class': 'form-control'}),
+            "due_date": DatePickerInput(),
             "related_feature": forms.TextInput(attrs={'class': 'form-control'}),
             "high_priority": forms.CheckboxInput(),
         }

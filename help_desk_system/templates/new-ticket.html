@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{{ ticket_form.media }}
 <div class="w-50 ml-auto mr-auto">
     <div class="mt-5 p-4 ml-auto mr-auto login rounded">
             <h2>New Ticket</h2>
