@@ -29,7 +29,11 @@ def home(request):
     return render(request, 'home.html')
 
 def new_ticket(request):
-    return render(request, 'new-ticket.html')
+    ticket_form = TicketForm()
+    context = {
+        'ticket_form': ticket_form
+    }
+    return render(request, 'new-ticket.html', context)
     
 # POST
 

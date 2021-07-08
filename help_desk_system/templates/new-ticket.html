@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>New Ticket</h2>
+<div class="w-50 ml-auto mr-auto">
+    <div class="mt-5 p-4 ml-auto mr-auto login rounded">
+            <h2>New Ticket</h2>
+            <div class="form-group w-50">
+                <form class="mb-2" action="/new_user/" method="POST">
+                    {% csrf_token %}
+                    {{ ticket_form.as_p }}
+                    <input class="btn button mt-2" type="submit" name="submit" id="submit" value="Submit">
+                    <button>Cancel</button>
+                </form>
+            </div>
+    </div>
+</div>
 
 {% endblock %}
