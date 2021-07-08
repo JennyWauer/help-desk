@@ -27,6 +27,9 @@ def register(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def new_ticket(request):
+    return render(request, 'new-ticket.html')
     
 # POST
 
