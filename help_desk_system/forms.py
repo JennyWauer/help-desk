@@ -47,3 +47,11 @@ class TicketForm(ModelForm):
             "related_feature",
             "high_priority",
         )
+
+        widgets = {
+            "name": forms.TextInput(attrs={'class': 'form-control'}),
+            "desc": forms.TextInput(attrs={'class': 'form-control'}),
+            "due_date": forms.DateInput(attrs={'class': 'form-control'}),
+            "related_feature": forms.TextInput(attrs={'class': 'form-control'}),
+            "high_priority": forms.CheckboxInput(),
+        }
