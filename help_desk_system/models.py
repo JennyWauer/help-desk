@@ -81,7 +81,7 @@ class Ticket(models.Model):
     desc = models.TextField()
     due_date = models.DateField()
     related_feature = models.CharField(max_length=255)
-    status = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, default="to do")
     high_priority = models.BooleanField()
     user = models.ForeignKey(User,related_name="tickets",on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
