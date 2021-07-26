@@ -43,14 +43,14 @@ class UserManager(models.Manager):
 
     def login_validator(self, postData):
         login_errors = {}
-        login_pass = postData['login_pass']
-        login_email = postData['login_email']
+        login_pass = postData['password']
+        login_email = postData['email']
         if len(User.objects.filter(email=login_email)) < 0:
             login_errors["login_email"] = "User email not found"
         if len(User.objects.filter(email=login_email)) > 0:
             user = User.objects.get(email=login_email)
-            if not user.password == login_pass:
-                login_errors["login_password"] = "Password does not match user email"
+            if not User.password == login_pass:
+                login_errors["login_pass"] = "Password does not match user email"
         return login_errors
         
 class User(models.Model):
@@ -73,6 +73,7 @@ class TicketManager(models.Manager):
             ticket_errors["desc"] = "Ticket description name should be at least 5 characters"
         if len(postData['related_feature']) < 2:
             ticket_errors["related_feature"] = "Related feature should be at least 2 characters"
+        return ticket_errors
 
 
 

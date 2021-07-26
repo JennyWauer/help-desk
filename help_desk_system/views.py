@@ -60,12 +60,26 @@ def new_user(request):
             return redirect('/home')
     return redirect('/register')
 
+def user_login(request):
+    if request.method == 'GET':
+        return redirect('/login')
+    if request.method == 'POST':
+        user = User.objects.filter(email=request.POST['email'])
+        if user:
+            logged_user = user[0] 
+            if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
+                request.session['user_id'] = logged_user.id
+                return redirect('/home')
+        else:
+            messages.error(request, 'Email/password combination not recognized. Please try again!')
+        return redirect("/login")
+
 def create_ticket(request):
     if request.method == 'POST':
-        errors = Ticket.objects.ticket_validator(request.POST)
-        if len(errors) > 0:
-            for key, value in errors.items():
-                messages.error(request, value)
+        ticket_errors = Ticket.objects.ticket_validator(request.POST)
+        if len(ticket_errors) > 0:
+            for key, value in ticket_errors.items():
+                messages.ticket_error(request, value)
             return redirect('/new_ticket')
         else:
             new_ticket = Ticket.objects.create(
@@ -73,7 +87,7 @@ def create_ticket(request):
                 desc=request.POST['desc'],
                 due_date=request.POST['due_date'],
                 high_priority=request.POST['high_priority'],
-                user=User.object.get(id=request.session['userid'])
+                user=User.objects.get(id=request.session['userid'])
             )
             return redirect('/home')
     return redirect('/home')

@@ -10,4 +10,5 @@ urlpatterns = [
     path('home/', views.home),
     path('new_ticket/', views.new_ticket),
     path('create_ticket/', views.create_ticket),
+    path('user_login/', views.user_login),
 ]
