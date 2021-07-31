@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>hello world</h2>
+<p>Open Tickets</p>
+{% for ticket in tickets %} 
+<div>
+    <p>{{ ticket.mame }}</p>
+    <p>{{ ticket.description }}</p>
+    <p>{{ ticket.due_date }}</p>
+    <p>{{ ticket.related_feature }}</p>
+    <p>{{ ticket.high_priority }}</p>
+</div>
+{% endfor %}
+
 {% endblock %}

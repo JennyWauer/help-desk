@@ -26,7 +26,12 @@ def register(request):
     return render(request, 'register.html', context)
 
 def home(request):
-    return render(request, 'home.html')
+    tickets = Ticket.objects.all()
+    context = {
+        'tickets': Ticket.objects.all(),
+    }
+    print(tickets)
+    return render(request, 'home.html', context)
 
 def new_ticket(request):
     ticket_form = TicketForm()
@@ -56,7 +61,7 @@ def new_user(request):
                 email=request.POST['email'],
                 password=pw_hash
             )
-            request.session['userid'] = new_user.id
+            request.session['user_id'] = new_user.id
             return redirect('/home')
     return redirect('/register')
 
@@ -76,18 +81,23 @@ def user_login(request):
 
 def create_ticket(request):
     if request.method == 'POST':
-        ticket_errors = Ticket.objects.ticket_validator(request.POST)
-        if len(ticket_errors) > 0:
-            for key, value in ticket_errors.items():
-                messages.ticket_error(request, value)
+        errors = Ticket.objects.ticket_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+                print(errors)
             return redirect('/new_ticket')
         else:
+            if "high_priority" in request.POST:
+                high_priority = request.POST['high_priority']
+            else: high_priority = False
             new_ticket = Ticket.objects.create(
                 name=request.POST['name'],
                 desc=request.POST['desc'],
                 due_date=request.POST['due_date'],
-                high_priority=request.POST['high_priority'],
-                user=User.objects.get(id=request.session['userid'])
+                high_priority=high_priority,
+                user=User.objects.get(id=request.session['user_id'])
             )
+            print('hello')
             return redirect('/home')
     return redirect('/home')
