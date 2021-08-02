@@ -26,12 +26,16 @@ def register(request):
     return render(request, 'register.html', context)
 
 def home(request):
-    tickets = Ticket.objects.all()
-    context = {
-        'tickets': Ticket.objects.all(),
-    }
-    print(tickets)
-    return render(request, 'home.html', context)
+    if 'user_id' in request.session:
+        user = User.objects.get(id=request.session['user_id'])
+        tickets = Ticket.objects.all()
+        context = {
+            'user': user,
+            'tickets': Ticket.objects.all(),
+        }
+        print(tickets)
+        return render(request, 'home.html', context)
+    redirect('/login')
 
 def new_ticket(request):
     ticket_form = TicketForm()
@@ -39,6 +43,12 @@ def new_ticket(request):
         'ticket_form': ticket_form
     }
     return render(request, 'new-ticket.html', context)
+
+def profile(request, user_id):
+    context = {
+        'tickets': Ticket.objects.all()
+    }
+    return render(request, 'profile.html', context)
     
 # POST
 
