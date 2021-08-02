@@ -1,15 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>hello world</h2>
-<p>Open Tickets</p>
-{% for ticket in tickets %} 
-<div>
-    <p>{{ ticket.mame }}</p>
-    <p>{{ ticket.description }}</p>
-    <p>{{ ticket.due_date }}</p>
-    <p>{{ ticket.related_feature }}</p>
-    <p>{{ ticket.high_priority }}</p>
+<div class="w-75 ml-auto mr-auto">
+    <h3>Open Tickets</h3>
+    <table class="table table-bordered table-striped table-hover ml-5">
+        <thead>
+            <tr class="table-header">
+                <th>Name</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Related Feature</th>
+                <th>High Priority</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.name }}</td>
+                <td>{{ ticket.desc }}</td>
+                <td>{{ ticket.due_date }}</td>
+                <td>{{ ticket.related_feature }}</td>
+                <td>{% if ticket.high_priority == True %}
+                    <span class="material-icons">priority_high</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-{% endfor %}
+
+
 
 {% endblock %}
